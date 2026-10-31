@@ -62,6 +62,14 @@ python handwritten_recognition.py
 ```
 Results are printed in the terminal and saved to `outputs/` (plots + `metrics.json`).
 
+## Interpreting the output
+- The first line, `Dataset: 1797 samples, 64 features (8x8 images), 10 classes (0-9)`, confirms the data loaded before any training starts.
+- One `--- Name: test accuracy = 0.XXXX ---` line is printed per model, in the order Logistic Regression, SVM, MLP Neural Network. Each value is accuracy on the 20% held-out test split (stratified, `random_state=42`), not training accuracy.
+- Only the MLP gets a full classification report (precision, recall and F1 per digit, printed right after its accuracy line) — the two baselines print an accuracy line only.
+- The run ends with an `=== Summary ===` table listing all three models' test accuracies side by side, followed by `Plots and metrics saved in: .../outputs`.
+- `outputs/metrics.json` holds only the model names and their test accuracies — the per-class report is terminal-only and is not saved to JSON.
+- The sample-predictions plot shows the first 20 test digits with the MLP's predictions (`Pred: X (true: Y)`, green = correct, red = wrong); the confusion matrix is for the MLP only, with rows = actual digit and columns = predicted digit.
+
 ## Project Structure
 ```
 HandwrittenCharacterRecognition/
